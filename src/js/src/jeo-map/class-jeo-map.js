@@ -63,14 +63,15 @@ export default class JeoMap {
 					}
 
 					if (
-						this.getArg( 'max_bounds_ne' ) &&
-						this.getArg( 'max_bounds_sw' ) &&
-						this.getArg( 'max_bounds_ne' ).length === 2 &&
-						this.getArg( 'max_bounds_sw' ).length === 2
+						this.getArg( 'pan_limits' ) &&
+						this.getArg( 'pan_limits' ).east &&
+						this.getArg( 'pan_limits' ).north &&
+						this.getArg( 'pan_limits' ).south &&
+						this.getArg( 'pan_limits' ).west
 					) {
 						map.setMaxBounds( [
-							this.getArg( 'max_bounds_sw' ),
-							this.getArg( 'max_bounds_ne' ),
+							[this.getArg( 'pan_limits' ).south, this.getArg( 'pan_limits' ).west], // Southwest coordinates
+							[this.getArg( 'pan_limits' ).north, this.getArg( 'pan_limits' ).east] // Northeast coordinates
 						] );
 					}
 

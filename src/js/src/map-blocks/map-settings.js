@@ -20,6 +20,12 @@ const mapDefaults = {
 	enable_fullscreen: jeo_settings.map_defaults.enable_fullscreen,
 };
 
+
+const panLimitStyle = {
+	display: "flex",
+	justifyContent: "space-between"
+}
+
 function parseNumber( value ) {
 	if ( value === '' ) {
 		return '';
@@ -29,7 +35,7 @@ function parseNumber( value ) {
 	return isNaN( numValue ) ? value : numValue;
 }
 
-export default ( { attributes, setAttributes } ) => {
+export default ( { attributes, setAttributes, setPanLimitsFromMap } ) => {
 	const {
 		center_lat: centerLat,
 		center_lon: centerLon,
@@ -164,6 +170,55 @@ export default ( { attributes, setAttributes } ) => {
 						} }
 					/>
 
+				</section>
+
+				<section className="pan-limits">
+					<h3>{ __( 'Pan limits', 'jeo' ) }</h3>
+					<p>
+					<div className="pan-wrapper">
+						<TextControl
+							type="number"
+							label={ __( 'North', 'jeo' ) }
+							value={ attributes.pan_limits?.north || "__"}
+							onChange={ ( value ) => {
+								return setAttributes({ ...attributes, 'pan_limits': { ...attributes.pan_limits, north: parseNumber(value) }});
+							} }
+						/>
+
+						<TextControl
+							type="number"
+							label={ __( 'East', 'jeo' ) }
+							value={ attributes.pan_limits?.east || "__" }
+							onChange={ ( value ) => {
+								return setAttributes({ ...attributes, 'pan_limits': { ...attributes.pan_limits, east: parseNumber(value) }});
+							} }
+						/>
+
+
+						<TextControl
+							type="number"
+							label={ __( 'South', 'jeo' ) }
+							value={ attributes.pan_limits?.south || "__"}
+							onChange={ ( value ) => {
+								return setAttributes({ ...attributes, 'pan_limits': { ...attributes.pan_limits, south: parseNumber(value) }});
+							} }
+						/>
+
+						<TextControl
+							type="number"
+							label={ __( 'West', 'jeo' ) }
+							value={ attributes.pan_limits?.west || "__"}
+							onChange={ ( value ) => {
+								return setAttributes({ ...attributes, 'pan_limits': { ...attributes.pan_limits, west: parseNumber(value) }});
+							} }
+						/>
+					</div>
+					</p>
+					<p>
+						<Button isPrimary isLarge onClick={ setPanLimitsFromMap }>
+							{ __( 'Set current as map settings', 'jeo' ) }
+						</Button>
+					</p>
 				</section>
 
 				<section className="public-maps">

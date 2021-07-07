@@ -58,6 +58,23 @@ function MapsSidebar( {
 		border: 0,
 	} );
 
+	const [ map, setMap ] = useState(false);
+
+	const setPanLimitsFromMap = () => {
+		if(map) {
+			const boundries = map.getBounds();
+			setPostMeta(
+				{	...postMeta,
+					'pan_limits': {
+						east: boundries._ne.lat,
+						north: boundries._ne.lng,
+						south: boundries._sw.lng,
+						west: boundries._sw.lat,
+					}
+				} )
+		}
+	}
+
 	const closeModal = useCallback( () => setModal( false ), [ setModal ] );
 	const openModal = useCallback( () => setModal( true ), [ setModal ] );
 
@@ -189,6 +206,7 @@ function MapsSidebar( {
 				attributes={ postMeta }
 				setAttributes={ setPostMeta }
 				renderPanel={ PluginDocumentSettingPanel }
+				setPanLimitsFromMap={ setPanLimitsFromMap }
 			/>
 			{ MapboxAPIKey && (
 				<MapPreviewPortal>
@@ -261,6 +279,7 @@ function MapsSidebar( {
 								'top-left'
 							);
 							map.addControl( new mapboxgl.FullscreenControl(), 'top-left' );
+							setMap(map);
 						} }
 						key={ key }
 						style="mapbox://styles/mapbox/streets-v11"
@@ -269,6 +288,7 @@ function MapsSidebar( {
 						center={ [ centerLon || 0, centerLat || 0 ] }
 						animationOptions={ animationOptions }
 						onMoveEnd={ ( map ) => {
+							console.log(map.getBounds())
 							const center = map.getCenter();
 							let zoom = Math.round( map.getZoom() * 10 ) / 10;
 

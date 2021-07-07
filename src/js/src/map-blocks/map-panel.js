@@ -15,6 +15,7 @@ export default function MapPanel( {
 	attributes,
 	setAttributes,
 	renderPanel: Panel,
+	setPanLimitsFromMap
 } ) {
 	useEffect( () => {
 		const isNewMap = [
@@ -38,7 +39,7 @@ export default function MapPanel( {
 			title={ __( 'Map settings', 'jeo' ) }
 			className="jeo-map-panel"
 		>
-			<MapSettings attributes={ attributes } setAttributes={ setAttributes } />
+			<MapSettings attributes={ attributes } setAttributes={ setAttributes } setPanLimitsFromMap={setPanLimitsFromMap} />
 		</Panel>
 	);
 }

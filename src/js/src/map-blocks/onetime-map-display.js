@@ -32,6 +32,7 @@ export default ( { attributes, className } ) => {
 			data-disable_drag_rotate={ attributes.disable_drag_rotate }
 			data-enable_fullscreen={ attributes.enable_fullscreen }
 			data-layers={ JSON.stringify( attributes.layers ) }
+			data-pan_limits={ JSON.stringify( attributes.pan_limits ) }
 			data-related_posts={
 				hasRelatedPosts ? JSON.stringify( attributes.related_posts ) : undefined
 			}

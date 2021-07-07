@@ -46,6 +46,24 @@ const OnetimeMapEditor = ( {
 	const [ zoomState, setZoomState ] = useState( 'initial_zoom' );
 	const currentZoom = attributes[ zoomState ];
 
+
+	const [ map, setMap ] = useState(false);
+
+	const setPanLimitsFromMap = () => {
+		if(map) {
+			const boundries = map.getBounds();
+			setAttributes(
+				{	...attributes,
+					'pan_limits': {
+						east: boundries._ne.lat,
+						north: boundries._ne.lng,
+						south: boundries._sw.lng,
+						west: boundries._sw.lat,
+					}
+				} )
+		}
+	}
+
 	return (
 		<Fragment>
 			{ modal && (
@@ -64,6 +82,7 @@ const OnetimeMapEditor = ( {
 					setAttributes={ setAttributes }
 					renderPanel={ PanelBody }
 					setZoomState={ setZoomState }
+					setPanLimitsFromMap={ setPanLimitsFromMap }
 				/>
 				<LayersPanel
 					attributes={ attributes }
@@ -87,6 +106,7 @@ const OnetimeMapEditor = ( {
 							'top-left'
 						);
 						map.addControl( new mapboxgl.FullscreenControl(), 'top-left' );
+						setMap(map);
 					} }
 					key={ currentZoom }
 					style="mapbox://styles/mapbox/streets-v11"

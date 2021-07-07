@@ -79,6 +79,28 @@ registerBlockType( 'jeo/onetime-map', {
 		enable_fullscreen: {
 			type: 'boolean',
 		},
+		pan_limits: {
+			type: 'object',
+			'properties': {
+				'east': {
+					'description': __('East pan limit', 'jeo'),
+					'type': 'number'
+				},
+				'north': {
+					'description': __('North pan limit', 'jeo'),
+					'type': 'number'
+				},
+				'south': {
+					'description': __('South pan limit', 'jeo'),
+					'type': 'number'
+				},
+				'west': {
+					'description': __('West pan limit', 'jeo'),
+
+					'type': 'number'
+				},
+			}
+		},
 		related_posts: {
 			type: 'object',
 			default: {
@@ -110,6 +132,7 @@ registerBlockType( 'jeo/onetime-map', {
 				},
 			},
 		},
+
 	},
 	edit: ( props ) => (
 		<AsyncModeProvider value={ true }>
